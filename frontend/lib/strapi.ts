@@ -26,6 +26,16 @@ export async function getHomePage() {
 
   const query = qs.stringify(QUERY_HOME_PAGE)
   const response = await getStrapiData(`/api/home-page?${query}`)
+
+  // Nunca devolver null/undefined — si falla, devolvemos estructura mínima
+  if (!response?.data) {
+    return {
+      title: "",
+      description: "",
+      sections: []
+    }
+  }
+
   return response?.data
 }
 
@@ -45,7 +55,7 @@ export async function getStrapiData(url: string) {
   }
 }
 
-export async function registerUserService (userData: object) {
+export async function registerUserService(userData: object) {
   const url = `${STRAPI_BASE_URL}/api/auth/local/register`
 
   try {
@@ -66,7 +76,7 @@ export async function registerUserService (userData: object) {
   }
 }
 
-export async function loginUserService (userData: object) {
+export async function loginUserService(userData: object) {
   const url = `${STRAPI_BASE_URL}/api/auth/local`
 
   try {
