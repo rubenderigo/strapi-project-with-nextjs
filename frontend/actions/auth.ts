@@ -103,4 +103,10 @@ export async function loginUserAction(prevState: FormState, formData: FormData):
   const cookieStore = await cookies()
   cookieStore.set('jwt', response.jwt, cookieConfig)
   redirect('/dashboard')
+}
+
+export async function signOutAction() {
+  const cookieStore = await cookies()
+  cookieStore.delete('jwt')
+  redirect('/')
 } 
