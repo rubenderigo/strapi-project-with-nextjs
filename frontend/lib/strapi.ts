@@ -26,16 +26,6 @@ export async function getHomePage() {
 
   const query = qs.stringify(QUERY_HOME_PAGE)
   const response = await getStrapiData(`/api/home-page?${query}`)
-
-  // Nunca devolver null/undefined — si falla, devolvemos estructura mínima
-  if (!response?.data) {
-    return {
-      title: "",
-      description: "",
-      sections: []
-    }
-  }
-
   return response?.data
 }
 
