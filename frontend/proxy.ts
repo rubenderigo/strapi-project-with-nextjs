@@ -3,13 +3,27 @@ import { NextResponse, type NextRequest } from "next/server"
 import { STRAPI_BASE_URL } from "./lib/strapi"
 
 const protectedRoutes = ['/dashboard']
+const authRoutes = ['/signin', '/signup']
 
 function checkIsProtectedRoute(path: string) {
   return protectedRoutes.includes(path)
 }
 
+function checkIsAuthRoute(path: string) {
+  return authRoutes.some(route => path.startsWith(route))
+}
+
 export async function proxy(request: NextRequest) {
   const currentPath = request.nextUrl.pathname
+
+  // Handle auth routes: redirect to dashboard if already logged in
+  if (checkIsAuthRoute(currentPath)) {
+    const jwt = request.cookies.get('jwt')
+    if (jwt) {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
+    return NextResponse.next()
+  }
 
   const isProtectedRoute = checkIsProtectedRoute(currentPath)
 
@@ -55,5 +69,10 @@ export const config = {
     "/((?!api|_next/static|_next/image|favicon.ico).*)",
     "/dashboard",
     "/dashboard/:path*",
+    "/signin",
+    "/signin/:path*",
+    "/signup",
+    "/signup/:path*",
   ]
 }
+
