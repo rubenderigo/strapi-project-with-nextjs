@@ -27,7 +27,7 @@ const styles = {
   content: "space-y-4",
   fieldGroup: "space-y-2",
   footer: "flex flex-col",
-  button: "w-full",
+  button: "w-full cursor-pointer",
   prompt: "mt-4 text-center text-sm",
   link: "ml-2 text-pink-500",
 };
