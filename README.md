@@ -5,6 +5,13 @@ The goal is to demonstrate how both sides connect: content modeling, APIs, authe
 
 ---
 
+Live Demo
+
+Production deployment :
+https://strapi-project-with-nextjs-nvl9b34nu-rubenderigos-projects.vercel.app/
+
+---
+
 ## What I Worked On (Full-Stack Focus)
 
 ### Frontend (Next.js 16)
