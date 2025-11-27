@@ -30,10 +30,14 @@ export async function getHomePage() {
 }
 
 export async function getStrapiData(url: string) {
+  'use cache'
+  
   console.log('getStrapiData')
 
   try {
-    const response = await fetch(`${STRAPI_BASE_URL}${url}`);
+    const response = await fetch(`${STRAPI_BASE_URL}${url}`, {
+      next: { revalidate: 3600 } // Revalidate every hour
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
